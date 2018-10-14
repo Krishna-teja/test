@@ -6,7 +6,7 @@
     "license": "MIT",
     "author": "Microsoft",
     "scripts": {
-        "start": "node dist/server.js"
+        "start": "node server.js"
     },
     "dependencies": {
         "@angular/animations": "^6.1.2",
