@@ -14,9 +14,8 @@ core_1.enableProdMode();
 // Express server
 var app = express();
 var PORT = process.env.PORT || 4000;
-var DIST_FOLDER = path_1.join(process.cwd(), 'dist');
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
-var _a = require('./dist/server/main'), AppServerModuleNgFactory = _a.AppServerModuleNgFactory, LAZY_MODULE_MAP = _a.LAZY_MODULE_MAP;
+var _a = require('./server/main'), AppServerModuleNgFactory = _a.AppServerModuleNgFactory, LAZY_MODULE_MAP = _a.LAZY_MODULE_MAP;
 // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
 app.engine('html', express_engine_1.ngExpressEngine({
     bootstrap: AppServerModuleNgFactory,
@@ -25,9 +24,9 @@ app.engine('html', express_engine_1.ngExpressEngine({
     ]
 }));
 app.set('view engine', 'html');
-app.set('views', path_1.join(DIST_FOLDER, 'browser'));
+app.set('views', 'browser');
 // Server static files from /browser
-app.get('*.*', express.static(path_1.join(DIST_FOLDER, 'browser'), {
+app.get('*.*', express.static('browser', {
     maxAge: '1y'
 }));
 // All regular routes use the Universal engine
