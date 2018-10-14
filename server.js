@@ -7,12 +7,15 @@ var core_1 = require("@angular/core");
 var express_engine_1 = require("@nguniversal/express-engine");
 // Import module map for lazy loading
 var module_map_ngfactory_loader_1 = require("@nguniversal/module-map-ngfactory-loader");
+var compression = require('compression');
 var express = require("express");
 var path_1 = require("path");
 // Faster server renders w/ Prod mode (dev mode never needed)
 core_1.enableProdMode();
 // Express server
 var app = express();
+// compress all responses
+app.use(compression());
 var PORT = process.env.PORT || 4000;
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
 var _a = require('./server/main'), AppServerModuleNgFactory = _a.AppServerModuleNgFactory, LAZY_MODULE_MAP = _a.LAZY_MODULE_MAP;
