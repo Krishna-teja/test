@@ -16,7 +16,7 @@ var app = express();
 var PORT = process.env.PORT || 4000;
 var DIST_FOLDER = path_1.join(process.cwd(), 'dist');
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
-var _a = require('./server/main'), AppServerModuleNgFactory = _a.AppServerModuleNgFactory, LAZY_MODULE_MAP = _a.LAZY_MODULE_MAP;
+var _a = require('./dist/server/main'), AppServerModuleNgFactory = _a.AppServerModuleNgFactory, LAZY_MODULE_MAP = _a.LAZY_MODULE_MAP;
 // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
 app.engine('html', express_engine_1.ngExpressEngine({
     bootstrap: AppServerModuleNgFactory,
