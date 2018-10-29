@@ -39199,7 +39199,7 @@ module.exports = "/* :host(){\r\n  padding: 24px;\r\n} */\r\n\r\n/*# sourceMappi
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ag-grid-angular fxFlex\r\n    style=\"position: relative; height:500px\"\r\n    class=\"ag-theme-balham\"\r\n    [enableSorting]=\"true\"\r\n    [enableFilter]=\"true\"\r\n    [rowData]=\"rowData | async\"\r\n    [columnDefs]=\"columnDefs\"\r\n    [localeText]=\"localeText\"\r\n    >\r\n</ag-grid-angular>\r\n"
+module.exports = "<ag-grid-angular fxFlex\r\n    style=\"position: relative; height:500px\"\r\n    class=\"ag-theme-balham\"\r\n    [enableSorting]=\"true\"\r\n    [enableFilter]=\"true\"\r\n    [rowData]=\"rowData | async\"\r\n    [columnDefs]=\"columnDefs\"\r\n    >\r\n</ag-grid-angular>\r\n"
 
 /***/ }),
 
@@ -39215,6 +39215,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GradebookSummaryComponent", function() { return GradebookSummaryComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _locales_values__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../locales.values */ "./src/app/locales.values.ts");
+/* harmony import */ var _locale_localeText__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../locale/localeText */ "./src/locale/localeText.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -39226,49 +39228,72 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
+
 var GradebookSummaryComponent = /** @class */ (function () {
     function GradebookSummaryComponent(http) {
         this.http = http;
+        this.columnDefs = [];
+        this.locales = [];
+        this.localeCode = 'en';
+        this.localeText = {};
+    }
+    GradebookSummaryComponent.prototype.getName = function () {
+        return;
+    };
+    GradebookSummaryComponent.prototype.ngOnInit = function () {
+        this.locales = _locales_values__WEBPACK_IMPORTED_MODULE_2__["locales"];
+        this.localeText = _locale_localeText__WEBPACK_IMPORTED_MODULE_3__["localeText"];
+        this.rowData = this.http.get('https://api.myjson.com/bins/oh3mg');
+        var hasCode = function (lanCode) {
+            var i = null;
+            for (i = 0; _locales_values__WEBPACK_IMPORTED_MODULE_2__["locales"].length > i; i += 1) {
+                if (_locales_values__WEBPACK_IMPORTED_MODULE_2__["locales"][i].code === lanCode) {
+                    return true;
+                }
+            }
+            return false;
+        };
+        if (window.location.pathname) {
+            var pathArray = window.location.pathname.split('/');
+            if (pathArray && hasCode(pathArray[1])) {
+                this.localeCode = pathArray[1];
+            }
+        }
         this.columnDefs = [
-            { headerName: 'Name', field: 'studentName', pinned: 'left' },
-            { headerName: 'Avg', field: 'avg', pinned: 'left', width: 100, minWidth: 100, maxWidth: 100 },
+            { headerName: this.localeText['Name_' + this.localeCode], field: 'studentName', pinned: 'left' },
+            { headerName: this.localeText['Average_' + this.localeCode], field: 'avg', pinned: 'left', width: 100, minWidth: 100, maxWidth: 100 },
             {
-                headerName: 'Assignment1',
+                headerName: this.localeText['Assignment1_' + this.localeCode],
                 valueGetter: function (params) {
                     return params.data.grades[0].studentGrade;
                 }
             },
             {
-                headerName: 'Assignment2',
+                headerName: this.localeText['Assignment2_' + this.localeCode],
                 valueGetter: function (params) {
                     return params.data.grades[1].studentGrade;
                 }
             },
             {
-                headerName: 'Assignment3',
+                headerName: this.localeText['Assignment3_' + this.localeCode],
                 valueGetter: function (params) {
                     return params.data.grades[2].studentGrade;
                 }
             },
             {
-                headerName: 'Assignment4',
+                headerName: this.localeText['Assignment4_' + this.localeCode],
                 valueGetter: function (params) {
                     return params.data.grades[3].studentGrade;
                 }
             },
             {
-                headerName: 'Assignment5',
+                headerName: this.localeText['Assignment5_' + this.localeCode],
                 valueGetter: function (params) {
                     return params.data.grades[4].studentGrade;
                 }
             }
         ];
-        this.localeText = {
-            Name: 'laName'
-        };
-    }
-    GradebookSummaryComponent.prototype.ngOnInit = function () {
-        this.rowData = this.http.get('https://api.myjson.com/bins/oh3mg');
     };
     GradebookSummaryComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -39303,7 +39328,7 @@ module.exports = "#gradebook{\r\n    position: relative;\r\n    top: 0;\r\n    r
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"gradebook\" fxLayout=\"column\">\r\n  <div fxLayout=\"row\" fxLayoutAlign=\"start center\" style=\"border-bottom: 1px solid rgba(0,0,0,.27); padding: 0 24px;\">\r\n    <mat-form-field style=\"margin-right: 8px\" i18n=\"@@select-term\">\r\n      <mat-select placeholder=\"Term\" i18n-placeholder=\"@@term-placeholder\" [(value)]=\"selectedTerm\">\r\n        <mat-option value=\"option1\">Q1</mat-option>\r\n        <mat-option value=\"option2\">Q2</mat-option>\r\n        <mat-option value=\"option3\">Q3</mat-option>\r\n        <mat-option value=\"option4\">Q4</mat-option>\r\n      </mat-select>\r\n    </mat-form-field>\r\n\r\n    <mat-form-field style=\"margin-right: 8px\" i18n=\"@@select-category\">\r\n      <mat-select  placeholder=\"Category\" i18n-placeholder=\"@@cat-placeholder\" [(value)]=\"selectedCategory\" (selectionChange)=\"onCategoryChange(selectedCategory)\">\r\n        <mat-option value=\"-2\">Summary</mat-option>\r\n        <mat-option value=\"-1\">All Assignment</mat-option>\r\n        <mat-option value=\"1\">Daily</mat-option>\r\n        <mat-option value=\"2\">Homework</mat-option>\r\n        <mat-option value=\"3\">Quiz</mat-option>\r\n        <mat-option value=\"4\">Test</mat-option>\r\n      </mat-select>\r\n    </mat-form-field>\r\n    <button mat-button i18n=\"@@add-assignment\" aria-label=\"Add assignment\" (click)=\"openDialog()\" style=\"background-color:#D6EAF8;\">\r\n      add\r\n    </button>\r\n  </div>\r\n\r\n  <router-outlet></router-outlet>\r\n</div>\r\n"
+module.exports = "<div id=\"gradebook\" fxLayout=\"column\" style=\"padding: 0px 20px 20px 20px\">\r\n  <span style=\"align-content: center\"><h2>Gradebook</h2></span>\r\n  <div fxLayout=\"row\" fxLayoutAlign=\"start center\" style=\"border-bottom: 1px solid rgba(0,0,0,.27); padding: 0 24px;\">\r\n    <mat-form-field style=\"margin-right: 8px\" i18n=\"@@select-term\">\r\n      <mat-select placeholder=\"Term\" i18n-placeholder=\"@@term-placeholder\" [(value)]=\"selectedTerm\">\r\n        <mat-option value=\"option1\">Q1</mat-option>\r\n        <mat-option value=\"option2\">Q2</mat-option>\r\n        <mat-option value=\"option3\">Q3</mat-option>\r\n        <mat-option value=\"option4\">Q4</mat-option>\r\n      </mat-select>\r\n    </mat-form-field>\r\n\r\n    <mat-form-field style=\"margin-right: 8px\" i18n=\"@@select-category\">\r\n      <mat-select  placeholder=\"Category\" i18n-placeholder=\"@@cat-placeholder\" [(value)]=\"selectedCategory\" (selectionChange)=\"onCategoryChange(selectedCategory)\">\r\n        <mat-option value=\"-2\">Summary</mat-option>\r\n        <mat-option value=\"-1\">All Assignment</mat-option>\r\n        <mat-option value=\"1\">Daily</mat-option>\r\n        <mat-option value=\"2\">Homework</mat-option>\r\n        <mat-option value=\"3\">Quiz</mat-option>\r\n        <mat-option value=\"4\">Test</mat-option>\r\n      </mat-select>\r\n    </mat-form-field>\r\n    <button mat-button i18n=\"@@add-assignment\" aria-label=\"Add assignment\" (click)=\"openDialog()\" style=\"background-color:#D6EAF8;\">\r\n      add\r\n    </button>\r\n  </div>\r\n  <router-outlet></router-outlet>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -39445,6 +39470,36 @@ var GradebookModule = /** @class */ (function () {
     return GradebookModule;
 }());
 
+
+
+/***/ }),
+
+/***/ "./src/locale/localeText.ts":
+/*!**********************************!*\
+  !*** ./src/locale/localeText.ts ***!
+  \**********************************/
+/*! exports provided: localeText */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "localeText", function() { return localeText; });
+var localeText = {
+    Name_en: 'Name',
+    Name_es: 'Nombre',
+    Average_en: 'Average',
+    Average_es: 'Promedio',
+    Assignment1_en: 'Assignment1',
+    Assignment1_es: 'Asignación1',
+    Assignment2_en: 'Assignment2',
+    Assignment2_es: 'Asignación2',
+    Assignment3_en: 'Assignment3',
+    Assignment3_es: 'Asignación3',
+    Assignment4_en: 'Assignment4',
+    Assignment4_es: 'Asignación4',
+    Assignment5_en: 'Assignment5',
+    Assignment5_es: 'Asignación5'
+};
 
 
 /***/ })

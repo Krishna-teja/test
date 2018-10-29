@@ -35,7 +35,7 @@ app.get('*.*', express.static('browser', {
 // All regular routes use the Universal engine
 app.get('*', function (req, res) {
     //this is for i18n
-    var supportedLocales = ['en', 'es'];
+    var supportedLocales = ['en', 'es', 'hi'];
     var defaultLocale = 'en';
     var matches = req.url.match(/^\/([a-z]{2}(?:-[A-Z]{2})?)\//);
     //check if the requested url has a correct format '/locale' and matches any of the supportedLocales
